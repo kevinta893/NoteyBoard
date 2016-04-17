@@ -22,7 +22,7 @@ var canvasPen = {
 var lines = [];
 
 $(document).ready(function(){
-    //hook up mouse event
+    //hook up mouse events
     canvas = document.getElementById("billboard");
     canvas.setAttribute("width", CANVAS_ATTR.width);
     canvas.setAttribute("height", CANVAS_ATTR.height);
@@ -57,7 +57,13 @@ $(document).ready(function(){
     canvas.addEventListener("mouseleave", function(e){
         mouseDown = false;
     });
+
+
+    //setup ui
+    $("#btnClear").click(clearCanvas);
+
 });
+
 
 function drawLine(x1,y1,x2,y2){
     canvasCtx.strokeStyle = canvasPen.color;
