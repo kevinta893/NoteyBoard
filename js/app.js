@@ -13,6 +13,14 @@ var CANVAS_ATTR = {
     height: 500
 };
 
+var canvasPen = {
+    color: "#aa5432",
+    lineJoin: "round",
+    lineWidth: 5
+};
+
+var lines = [];
+
 $(document).ready(function(){
     //hook up mouse event
     canvas = document.getElementById("billboard");
@@ -27,6 +35,8 @@ $(document).ready(function(){
         var mouseX = e.pageX - this.offsetLeft;
         var mouseY = e.pageY - this.offsetTop;
         lastPt = {x: mouseX, y: mouseY};
+
+        drawLine(lastPt.x, lastPt.y, lastPt.x, lastPt.y + 0.01);
     });
 
     canvas.addEventListener("mousemove", function(e){
@@ -34,10 +44,7 @@ $(document).ready(function(){
             var mouseX = e.pageX - this.offsetLeft;
             var mouseY = e.pageY - this.offsetTop;
             //draw line
-            canvasCtx.beginPath();
-            canvasCtx.moveTo(lastPt.x, lastPt.y);
-            canvasCtx.lineTo(mouseX, mouseY);
-            canvasCtx.stroke();
+            drawLine(lastPt.x, lastPt.y, mouseX, mouseY);
 
             lastPt = {x: mouseX, y: mouseY};
         }
@@ -46,8 +53,29 @@ $(document).ready(function(){
     canvas.addEventListener("mouseup", function(e){
         mouseDown = false;
 
+        var mouseX = e.pageX - this.offsetLeft;
+        var mouseY = e.pageY - this.offsetTop;
+        drawLine(lastPt.x, lastPt.y, mouseX, mouseY);
+    });
+
+    canvas.addEventListener("mouseleave", function(e){
+        mouseDown = false;
     });
 });
+
+function drawLine(x1,y1,x2,y2){
+    canvasCtx.strokeStyle = canvasPen.color;
+    canvasCtx.lineJoin = canvasPen.lineJoin;
+    canvasCtx.lineWidth = canvasPen.lineWidth;
+    canvasCtx.beginPath();
+    canvasCtx.moveTo(x1, y1);
+    canvasCtx.lineTo(x2, y2);
+    canvasCtx.closePath();
+    canvasCtx.stroke();
+
+    //track this line
+    lines.push({x1: x1, y1: y1, x2: x2, y2: y2});
+}
 
 function clearCanvas(){
     canvasCtx.clearRect(0,0, canvasCtx.canvas.width, canvasCtx.canvas.height);
