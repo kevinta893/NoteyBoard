@@ -87,4 +87,5 @@ function setBrushSize(size){
 
 function clearCanvas(){
     canvasCtx.clearRect(0,0, canvasCtx.canvas.width, canvasCtx.canvas.height);
+    lines = [];
 }
