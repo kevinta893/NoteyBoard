@@ -60,8 +60,10 @@ $(document).ready(function(){
 
 
     //setup ui
-    $("#btnClear").click(clearCanvas);
-
+    $("#btnClear").on("click", clearCanvas);
+    $("#brushSize").change( function(e){
+        setBrushSize(e.target.value);
+    });
 });
 
 
@@ -77,6 +79,10 @@ function drawLine(x1,y1,x2,y2){
 
     //track this line
     lines.push({x1: x1, y1: y1, x2: x2, y2: y2});
+}
+
+function setBrushSize(size){
+    canvasPen.lineWidth = size;
 }
 
 function clearCanvas(){
