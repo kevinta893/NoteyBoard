@@ -52,10 +52,6 @@ $(document).ready(function(){
 
     canvas.addEventListener("mouseup", function(e){
         mouseDown = false;
-
-        var mouseX = e.pageX - this.offsetLeft;
-        var mouseY = e.pageY - this.offsetTop;
-        drawLine(lastPt.x, lastPt.y, mouseX, mouseY);
     });
 
     canvas.addEventListener("mouseleave", function(e){
